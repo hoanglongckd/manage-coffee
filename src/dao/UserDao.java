@@ -25,7 +25,7 @@ public class UserDao {
 			pst.setString(2, password);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new User(rs.getInt("id"),rs.getInt("idNguoiQuanLy"),rs.getInt("idNhanVien"),rs.getString("username"),rs.getString("password"),rs.getInt("trangThaiDangNhap"));
+				Item = new User(rs.getInt("idUser"),rs.getInt("idNguoiQuanLy"),rs.getInt("idNhanVien"),rs.getString("username"),rs.getString("password"));
 				
 			}
 		} catch (SQLException e) {

@@ -25,7 +25,7 @@ public class OrderDao {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Order(rs.getInt("idNhanVien"), rs.getInt("idBan"),0,0);
+				Item = new Order(0,0);
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {

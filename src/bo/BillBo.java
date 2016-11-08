@@ -1,5 +1,6 @@
 package bo;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import bean.Bill;
@@ -14,20 +15,29 @@ public class BillBo {
 	}
 
 	public int addItem(Bill Item) {
-		return itemDao.addItem(Item);
+		return itemDao.addItem(new Bill(0, Item.getId_staff(), Item.getId_table(),0,new Timestamp(System.currentTimeMillis()), ""));
 	}
-//	public int editItem(Bill Item) {
-//		return itemDao.editItem(Item);
-//	}
-//
-//	public Bill getItemById(int Id) {
-//		
-//		return itemDao.getItemByID(Id);
-//	}
-//
-//	public int delItem(int id) {
-//		return itemDao.delItemByID(id);
-//	}
+	public int editItem(Bill Item) {
+		return itemDao.editItem(Item);
+	}
+
+	public Bill getItemById(int Id) {
+		
+		return itemDao.getItemByID(Id);
+	}
+
+	public int delItem(int id) {
+		return itemDao.delItemByID(id);
+	}
+
+	public Bill getItemByIdTable(int idTable) {
+		return itemDao.getItemByIdTable(idTable);
+	}
+
+	public void setStatusPay(int id) {
+		itemDao.setStatusPay(id);
+		
+	}
 
 	
 }

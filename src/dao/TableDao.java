@@ -26,7 +26,7 @@ public class TableDao {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Table(rs.getInt("id"),rs.getInt("idQuan"),rs.getString("tenBan"), rs.getInt("trangThai"));
+				Item = new Table(rs.getInt("idBan"),rs.getInt("idQuan"),rs.getString("tenBan"), rs.getInt("trangThai"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -160,6 +160,32 @@ public class TableDao {
 		}
 		
 		return result;
+	}
+
+	public void setStatusTable(int idTable) {
+		conn = lb.getConnectMySQL();
+		String query = "UPDATE  ban SET  trangThai =? WHERE idBan =? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,0 );
+			pst.setInt(2,idTable );
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 
 }

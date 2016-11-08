@@ -6,27 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import bean.DetailBill;
+import bean.Material;
 import libraryConnectDb.LibraryConnectDb;
 
-public class DetailBillDao {
+public class MaterialDao {
 	private Connection conn;
 	private PreparedStatement pst;
 	private ResultSet rs;
 
 	LibraryConnectDb lb = new LibraryConnectDb();
 
-	public ArrayList<DetailBill> getList() {
-		DetailBill Item = null;
-		ArrayList<DetailBill> alItem = new ArrayList<DetailBill>();
+	public ArrayList<Material> getList() {
+		Material Item = null;
+		ArrayList<Material> alItem = new ArrayList<Material>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chitiethoadon  ";
+		String query = "SELECT * FROM  nguyenlieu WHERE idQuan = ? ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
-			
+			pst.setInt(1, 1);
 			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				Item = new Material(rs.getInt("id"),rs.getInt("idAnh"),rs.getInt("idDonViTinh"),rs.getInt("idQuan"),rs.getString("ten"),rs.getString("ghiChu"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -46,19 +46,18 @@ public class DetailBillDao {
 	}
 	
 
-	public int addItem(DetailBill Item) {
+	public int addItem(Material Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO chitiethoadon(idHoaDon,idThucDon,soLuong,soTien,trangThaiPhucVu) VALUES(?,?,?,?,?)";
+		String query = "INSERT INTO nguyenlieu(idAnh,idDonViTinh,idQuan,ten,ghiChu) VALUES(?,?,?,?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1, Item.getId_bill());
-			pst.setInt(2, Item.getId_menu());
-			pst.setInt(3, Item.getCount_menu());
-			pst.setFloat(4, Item.getCount_money());
-			pst.setInt(5, Item.getStatus_serve());
-			
+			pst.setInt(1, Item.getId_picture());
+			pst.setInt(2, Item.getUnit());
+			pst.setInt(3, Item.getId_shop());
+			pst.setString(4, Item.getName());
+			pst.setString(5, Item.getNote());
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -78,20 +77,19 @@ public class DetailBillDao {
 		return result;
 	}
 
-	public int editItem(DetailBill Item) {
+	public int editItem(Material Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  nhaphang SET idHoaDon =?,idThucDon =?,soLuong = ?,soTien =? ,trangThaiPhucVu =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  nguyenlieu SET idAnh =? ,idDonViTinh =? ,idQuan = ?,ten =? ,ghiChu =? WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1, Item.getId_bill());
-			pst.setInt(2, Item.getId_menu());
-			pst.setInt(3, Item.getCount_menu());
-			pst.setFloat(4, Item.getCount_money());
-			pst.setInt(5, Item.getStatus_serve());
-			pst.setFloat(6, Item.getCount_money());
-			pst.setInt(7, Item.getId_detail());
+			pst.setInt(1, Item.getId_picture());
+			pst.setInt(2, Item.getUnit());
+			pst.setInt(3, Item.getId_shop());
+			pst.setString(4, Item.getName());
+			pst.setString(5, Item.getNote());
+			
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -111,18 +109,18 @@ public class DetailBillDao {
 		
 	}
 
-	public DetailBill getItemByID(int Id) {
-		DetailBill objItem = null;
+	public Material getItemByID(int Id) {
+		Material objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM chitiethoadon WHERE id = ?  LIMIT 1";
+		String query = "SELECT * FROM nguyenlieu WHERE id = ?  LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem =   new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				objItem =  new Material(rs.getInt("id"),rs.getInt("idAnh"),rs.getInt("idDonViTinh"),rs.getInt("idQuan"),rs.getString("ten"),rs.getString("ghiChu"));
 			}
 			
 		} catch (SQLException e) {
@@ -145,7 +143,7 @@ public class DetailBillDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  chitiethoadon WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  nguyenlieu WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -167,36 +165,6 @@ public class DetailBillDao {
 		}
 		
 		return result;
-	}
-
-
-	public ArrayList<DetailBill> getOrderByIdBill(int idBill) {
-		DetailBill Item = null;
-		ArrayList<DetailBill> alItem = new ArrayList<DetailBill>();
-		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chitiethoadon WHERE idHoaDon =?  ";
-		try {
-			pst = conn.prepareStatement(query);
-			rs = pst.executeQuery();
-			pst.setInt(1, idBill);
-			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
-				alItem.add(Item);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return alItem;
 	}
 
 }

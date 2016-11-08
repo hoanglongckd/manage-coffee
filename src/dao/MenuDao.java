@@ -25,7 +25,7 @@ public class MenuDao {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Menu(rs.getInt("id"),rs.getInt("idAnh"),rs.getString("ten"),rs.getString("tenThucDon"),rs.getInt("soLuong"));
+				Item = new Menu(rs.getInt("idThucDon"),rs.getInt("idAnh"),rs.getString("ten"),rs.getString("tenThucDon"),rs.getInt("soLuong"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {

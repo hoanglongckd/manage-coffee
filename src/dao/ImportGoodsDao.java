@@ -6,27 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import bean.DetailBill;
+import bean.ImportGoods;
 import libraryConnectDb.LibraryConnectDb;
 
-public class DetailBillDao {
+public class ImportGoodsDao {
 	private Connection conn;
 	private PreparedStatement pst;
 	private ResultSet rs;
 
 	LibraryConnectDb lb = new LibraryConnectDb();
 
-	public ArrayList<DetailBill> getList() {
-		DetailBill Item = null;
-		ArrayList<DetailBill> alItem = new ArrayList<DetailBill>();
+	public ArrayList<ImportGoods> getList() {
+		ImportGoods Item = null;
+		ArrayList<ImportGoods> alItem = new ArrayList<ImportGoods>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chitiethoadon  ";
+		String query = "SELECT * FROM  nhaphang WHERE idQuan = ? ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
-			
+			pst.setInt(1, 1);
 			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				Item = new ImportGoods(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idNhanVien"),rs.getInt("idQuan"),rs.getInt("soLuong"), rs.getTimestamp("ngayNhapHang"), rs.getFloat("soTien"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -46,52 +46,52 @@ public class DetailBillDao {
 	}
 	
 
-	public int addItem(DetailBill Item) {
+	public int addItem(ImportGoods Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO chitiethoadon(idHoaDon,idThucDon,soLuong,soTien,trangThaiPhucVu) VALUES(?,?,?,?,?)";
+		String query = "INSERT INTO nhaphang(idNguyenLieu,idNhanVien,idQuan,soLuong,ngayNhapHang,soTien) VALUES(?,?,?,?,?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1, Item.getId_bill());
-			pst.setInt(2, Item.getId_menu());
-			pst.setInt(3, Item.getCount_menu());
-			pst.setFloat(4, Item.getCount_money());
-			pst.setInt(5, Item.getStatus_serve());
-			
-			pst.executeUpdate();
-			result =1;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-		return result;
-	}
-
-	public int editItem(DetailBill Item) {
-		conn = lb.getConnectMySQL();
-		int result =0;
-		String query = "UPDATE  nhaphang SET idHoaDon =?,idThucDon =?,soLuong = ?,soTien =? ,trangThaiPhucVu =? WHERE id =? LIMIT 1";
-		
-		try {
-			pst = conn.prepareStatement(query);
-			pst.setInt(1, Item.getId_bill());
-			pst.setInt(2, Item.getId_menu());
-			pst.setInt(3, Item.getCount_menu());
-			pst.setFloat(4, Item.getCount_money());
-			pst.setInt(5, Item.getStatus_serve());
+			pst.setInt(1, Item.getId_material());
+			pst.setInt(2, Item.getId_staff());
+			pst.setInt(3, Item.getId_shop());
+			pst.setInt(4, Item.getCount_goods());
+			pst.setTimestamp(5, Item.getDate_import());
 			pst.setFloat(6, Item.getCount_money());
-			pst.setInt(7, Item.getId_detail());
+			pst.executeUpdate();
+			result =1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return result;
+	}
+
+	public int editItem(ImportGoods Item) {
+		conn = lb.getConnectMySQL();
+		int result =0;
+		String query = "UPDATE  nhaphang SET idNguyenLieu =?,idNhanVien =? ,idQuan =?,soLuong =?,ngayNhapHang =?,soTien =? WHERE id =? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1, Item.getId_material());
+			pst.setInt(2, Item.getId_staff());
+			pst.setInt(3, Item.getId_shop());
+			pst.setInt(4, Item.getCount_goods());
+			pst.setTimestamp(5, Item.getDate_import());
+			pst.setFloat(6, Item.getCount_money());
+			pst.setInt(7, Item.getId_import());
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -111,18 +111,18 @@ public class DetailBillDao {
 		
 	}
 
-	public DetailBill getItemByID(int Id) {
-		DetailBill objItem = null;
+	public ImportGoods getItemByID(int Id) {
+		ImportGoods objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM chitiethoadon WHERE id = ?  LIMIT 1";
+		String query = "SELECT * FROM nhaphang WHERE id = ?  LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem =   new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				objItem =  new ImportGoods(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idNhanVien"),rs.getInt("idQuan"),rs.getInt("soLuong"), rs.getTimestamp("ngayNhapHang"), rs.getFloat("soTien"));
 			}
 			
 		} catch (SQLException e) {
@@ -145,7 +145,7 @@ public class DetailBillDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  chitiethoadon WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  nhaphang WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -167,36 +167,6 @@ public class DetailBillDao {
 		}
 		
 		return result;
-	}
-
-
-	public ArrayList<DetailBill> getOrderByIdBill(int idBill) {
-		DetailBill Item = null;
-		ArrayList<DetailBill> alItem = new ArrayList<DetailBill>();
-		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chitiethoadon WHERE idHoaDon =?  ";
-		try {
-			pst = conn.prepareStatement(query);
-			rs = pst.executeQuery();
-			pst.setInt(1, idBill);
-			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
-				alItem.add(Item);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return alItem;
 	}
 
 }

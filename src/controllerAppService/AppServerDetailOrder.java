@@ -1,8 +1,6 @@
 package controllerAppService;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,31 +8,35 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bean.ListTableType;
+import bean.Bill;
+import bean.DetailOrderList;
 import bean.LoginedAccount;
-import bean.Table;
-import bo.TableBo;
+import bean.OrderType;
+import bo.BillBo;
+import bo.DetailBillBo;
+import bo.OrderBo;
 
-@Path("/serverTable")
-public class AppServerTable {
-
-	TableBo taBo = new TableBo();
-	
-	
+@Path("/serverDetailOrder")
+public class AppServerDetailOrder {
+	OrderBo orderBo = new OrderBo();
+	BillBo billBo = new BillBo();
+	DetailBillBo detailBillBo = new DetailBillBo();
 
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_XML)
-
-	public Response getListTable(@QueryParam("key") String key) {
-		ListTableType<List<Table>> result = new ListTableType<>();
+	public Response getListTable(@QueryParam("idTable") String idTableS,@QueryParam("key") String key) {
+		OrderType<ArrayList<DetailOrderList>> result = new OrderType<>();
 		ArrayList<LoginedAccount> listLoginedAccounts = AppServerLogin.getListLoginedAccounts();
 		if(!listLoginedAccounts.isEmpty()){
 			for (LoginedAccount loginedAccount : listLoginedAccounts) {
 				if(key.equals(loginedAccount.getKey())){
 					System.out.println("v1");
-					List<Table> tableList = taBo.getListTable();
-					result.setValue(tableList);
+					int idTable = Integer.parseInt(idTableS);
+					Bill itemBill = billBo.getItemByIdTable(idTable);
+					DetailOrderList detaiOrderList = new DetailOrderList(detailBillBo.getOrderByIdBill(itemBill.getId_bill()), itemBill.getSumMoney());
+					billBo.setStatusPay(itemBill.getId_bill());
+					result.setValue(detaiOrderList);
 					break;
 				}else{
 					System.out.println("v2");
@@ -49,19 +51,6 @@ public class AppServerTable {
 
 	}
 	
-	
-	
 
-//	@POST
-//	@Path("/addTable")
-//	@Consumes(MediaType.APPLICATION_XML)
-//	@Produces(MediaType.APPLICATION_XML)
-//	public Response addPlace(Table Item) {
-//		PrimitiveType<Integer> result = new PrimitiveType<>();
-//		int xm = taBo.addItem(Item);
-//		result.setValue(xm);
-//		
-//		return Response.status(200).entity(result).build();//just test
-//	}
 	
 }

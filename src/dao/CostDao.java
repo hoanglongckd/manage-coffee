@@ -107,14 +107,14 @@ public class CostDao {
 		Cost objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM giatien WHERE id = ? LIMIT 1";
+		String query = "SELECT * FROM giatien WHERE idGiaTien = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new Cost(rs.getInt("id"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
 			}
 			
 		} catch (SQLException e) {

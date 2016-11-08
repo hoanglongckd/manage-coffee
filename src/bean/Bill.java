@@ -7,6 +7,7 @@ public class Bill {
 	private int id_staff;
 	private int id_table;
 	private int status_pay;
+	private float sumMoney;
 	private Timestamp date_single_up;
 	private String note;
 	public int getId_bill() {
@@ -47,6 +48,12 @@ public class Bill {
 		this.note = note;
 	}
 	
+	public float getSumMoney() {
+		return sumMoney;
+	}
+	public void setSumMoney(float sumMoney) {
+		this.sumMoney = sumMoney;
+	}
 	public Bill(int id_bill, int id_staff, int id_table, int status_pay, Timestamp date_single_up, String note) {
 		super();
 		this.id_bill = id_bill;
@@ -59,6 +66,22 @@ public class Bill {
 	public Bill() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Bill(int id_Table, int id_staff) {
+		super();
+		this.id_table = id_Table;
+		this.id_staff = id_staff;
+	}
+	public Bill(int id_bill, int id_staff, int id_table, int status_pay, float sumMoney, Timestamp date_single_up,
+			String note) {
+		super();
+		this.id_bill = id_bill;
+		this.id_staff = id_staff;
+		this.id_table = id_table;
+		this.status_pay = status_pay;
+		this.sumMoney = sumMoney;
+		this.date_single_up = date_single_up;
+		this.note = note;
 	}
 	
 
