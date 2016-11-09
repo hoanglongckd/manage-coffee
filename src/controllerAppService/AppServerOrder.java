@@ -46,20 +46,35 @@ public class AppServerOrder {
 		if (!listLoginedAccounts.isEmpty()) {
 			for (LoginedAccount loginedAccount : listLoginedAccounts) {
 				if (Item.getKey().equals(loginedAccount.getKey())) {
-					int idBill = billBo.addItem(new Bill(Item.getIdTable(), loginedAccount.getIdStaff()));
 
-					tableBo.setStatusTable(Item.getIdTable(), 1);
+					if (tableBo.getStatusTable(Item.getIdTable()) == true) {
+						int idBill = billBo.addItem(new Bill(Item.getIdTable(), loginedAccount.getIdStaff()));
+						tableBo.setStatusTable(Item.getIdTable(), 1);
 
-					for (Order order : Item.getOrders()) {
-						float money = costBo.getItemByIdMenu(order.getId_menu()).getCost() * order.getCount_menu();
-						detailBillBo.addItem(
-								new DetailBill(0, idBill, order.getId_menu(), order.getCount_menu(), money, 0));
-						
+						for (Order order : Item.getOrders()) {
+							float money = costBo.getItemByIdMenu(order.getId_menu()).getCost() * order.getCount_menu();
+							detailBillBo.addItem(
+									new DetailBill(0, idBill, order.getId_menu(), order.getCount_menu(), money, 0));
+
+						}
+						float money = detailBillBo.getSumMoney(idBill);
+						billBo.setSumMoney(idBill, money);
+						result.setValue(1);
+						break;
+					} else {
+						int idBill = billBo.getIbBillByIDTable(Item.getIdTable());
+
+						for (Order order : Item.getOrders()) {
+							float money = costBo.getItemByIdMenu(order.getId_menu()).getCost() * order.getCount_menu();
+							detailBillBo.addItem(
+									new DetailBill(0, idBill, order.getId_menu(), order.getCount_menu(), money, 0));
+
+						}
+						float money = detailBillBo.getSumMoney(idBill);
+						billBo.setSumMoney(idBill, money);
+						result.setValue(1);
+						break;
 					}
-					float money = detailBillBo.getSumMoney(idBill);
-					billBo.setSumMoney(idBill, money);
-					result.setValue(1);
-					break;
 				} else {
 					result.setValue(0);
 				}

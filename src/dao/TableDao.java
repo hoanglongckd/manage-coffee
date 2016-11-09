@@ -188,4 +188,37 @@ public class TableDao {
 		
 	}
 
+	public boolean getStatusTable(int idTable) {
+		conn = lb.getConnectMySQL();
+		boolean result = true;
+		String query = "SELECT *FROM  ban WHERE idBan =? ";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,idTable);
+			rs = pst.executeQuery();
+			while(rs.next()){
+				if(rs.getInt("trangThai")==1){
+					result = false;
+					System.err.println("b"+result);
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return result;
+	}
+
 }

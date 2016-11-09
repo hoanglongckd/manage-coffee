@@ -34,5 +34,9 @@ public class TableBo {
 		
 	}
 
+	public  boolean getStatusTable(int idTable) {
+		return tabledao.getStatusTable(idTable);
+	}
+
 	
 }

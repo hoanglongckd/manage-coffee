@@ -44,5 +44,9 @@ public class BillBo {
 		
 	}
 
+	public int getIbBillByIDTable(int idTable) {
+		return itemDao.getIbBillByIDTable(idTable);
+	}
+
 	
 }

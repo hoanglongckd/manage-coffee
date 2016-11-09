@@ -181,7 +181,7 @@ public class BillDao {
 	public Bill getItemByIdTable(int idTable) {
 		conn = lb.getConnectMySQL();
 		Bill Item  = null;
-		String query = "SELECT * FROM hoadon WHERE idBan = ? && trangThaiThanhToan =? LIMIT 1";
+		String query = "SELECT * FROM hoadon WHERE idBan = ? && trangThaiThanhToan =? ";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -259,6 +259,36 @@ public class BillDao {
 			
 		}
 		
+	}
+	public int getIbBillByIDTable(int idTable) {
+		conn = lb.getConnectMySQL();
+		int result   = 0;
+		String query = "SELECT * FROM hoadon WHERE idBan = ? && trangThaiThanhToan =? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,idTable );
+			pst.setInt(2, 0);
+			rs = pst.executeQuery();
+			if(rs.next()){
+				result = rs.getInt("idHoaDon");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
 	}
 
 }

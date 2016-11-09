@@ -33,7 +33,7 @@ public class AppServerDetailOrder {
 		if (!listLoginedAccounts.isEmpty()) {
 			for (LoginedAccount loginedAccount : listLoginedAccounts) {
 				if (key.equals(loginedAccount.getKey())) {
-					System.out.println("v1");
+
 					int idTable = 0;
 					try {
 						idTable = Integer.parseInt(idTableS);
@@ -43,29 +43,28 @@ public class AppServerDetailOrder {
 
 					Bill itemBill = billBo.getItemByIdTable(idTable);
 					if (itemBill != null) {
-						System.err.println("it" + itemBill.getId_bill() + "" + itemBill.getSumMoney());
 
 						DetailOrderList detaiOrderList = new DetailOrderList(
 								detailBillBo.getOrderByIdBill(itemBill.getId_bill()), itemBill.getSumMoney());
 						if (detaiOrderList.getDetaiBill().size() > 0) {
 							result.setValue(detaiOrderList);// hắn k có hiên thị
+							billBo.setStatusPay(itemBill.getId_bill());
+							tableBo.setStatusTable(idTable, 0);
 							break;
 						} else {
 							result.setValue(new DetailOrderList());
 						}
-						 billBo.setStatusPay(itemBill.getId_bill());
-						 tableBo.setStatusTable(idTable,0);
 
 					} else {
 						result.setValue(new DetailOrderList());
 					}
 				} else {
-					System.out.println("v2");
+
 					result.setValue(new DetailOrderList());
 				}
 			}
 		} else {
-			System.out.println("v3");
+
 			result.setValue(new DetailOrderList());
 		}
 		return Response.status(200).entity(result).build();
