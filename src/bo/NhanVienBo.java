@@ -24,10 +24,10 @@ public class NhanVienBo {
 		return NhanVienDao.getListNhanVien();
 	}
 	
-	public ArrayList<NhanVien> getListNhanVienDetail() {
+	/*public ArrayList<NhanVien> getListNhanVienDetail() {
 		return NhanVienDao.getListNhanVienDetail();
 	}
-
+*/
 	public boolean addItem(NhanVien NhanVien) {
 		return NhanVienDao.addNhanVien(NhanVien);
 	}

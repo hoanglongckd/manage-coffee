@@ -8,16 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "orders")
 public class OrderList {
 	private List<Order> orders;
-	private int idStaff;
+
 	private int idTable;
 	private String key;
-	public int getIdStaff() {
-		return idStaff;
-	}
-	@XmlElement
-	public void setIdStaff(int idStaff) {
-		this.idStaff = idStaff;
-	}
+	
 
 	public int getIdTable() {
 		return idTable;

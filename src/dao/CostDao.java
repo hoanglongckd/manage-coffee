@@ -161,4 +161,36 @@ public class CostDao {
 		return result;
 	}
 
+
+	public Cost getItemByIdMenu(int id_menu) {
+		Cost objItem = null;
+		conn = lb.getConnectMySQL();
+		
+		String query = "SELECT * FROM giatien WHERE idThucDon = ? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,id_menu );
+			rs = pst.executeQuery();
+			if(rs.next()){
+				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return objItem;
+	}
+
 }

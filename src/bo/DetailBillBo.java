@@ -7,21 +7,27 @@ import dao.DetailBillDao;
 
 public class DetailBillBo {
 	DetailBillDao itemDao = new DetailBillDao();
-	CostBo costBo = new CostBo();
 	
+	BillBo billBo = new BillBo();
+
 	public ArrayList<DetailBill> getList() {
 		return itemDao.getList();
 	}
 
 	public int addItem(DetailBill Item) {
-		return itemDao.addItem(new DetailBill(0, Item.getId_bill(),Item.getId_menu() ,Item.getCount_menu(), costBo.getItemById(Item.getId_bill()).getCost() *Item.getCount_menu(), 0));
+		
+		
+		return itemDao.addItem(Item);
+
 	}
+	
+
 	public int editItem(DetailBill Item) {
 		return itemDao.editItem(Item);
 	}
 
 	public DetailBill getItemById(int Id) {
-		
+
 		return itemDao.getItemByID(Id);
 	}
 
@@ -31,6 +37,10 @@ public class DetailBillBo {
 
 	public ArrayList<DetailBill> getOrderByIdBill(int idBill) {
 		return itemDao.getOrderByIdBill(idBill);
+	}
+
+	public float getSumMoney(int idBill) {
+		return itemDao.getSumMoney(idBill);
 	}
 
 }

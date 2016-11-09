@@ -32,17 +32,17 @@ public class AppServerTable {
 		if(!listLoginedAccounts.isEmpty()){
 			for (LoginedAccount loginedAccount : listLoginedAccounts) {
 				if(key.equals(loginedAccount.getKey())){
-					System.out.println("v1");
+					
 					List<Table> tableList = taBo.getListTable();
 					result.setValue(tableList);
 					break;
 				}else{
-					System.out.println("v2");
+					
 					result.setValue(null);
 				}
 			}
 		}else{
-			System.out.println("v3");
+			
 			result.setValue(null);
 		}
 		return Response.status(200).entity(result).build();

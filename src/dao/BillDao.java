@@ -69,8 +69,9 @@ public class BillDao {
 			ResultSet rsk = pst.getGeneratedKeys();
 			while(rsk.next()){
 				result = rsk.getInt(1);
+				System.err.println("a"+result);
 			}
-			result =1;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,7 +189,7 @@ public class BillDao {
 			pst.setInt(2, 0);
 			rs = pst.executeQuery();
 			if(rs.next()){
-				Item = new Bill(rs.getInt("idHoaDon"),rs.getInt("idNhanVien"),rs.getInt("idBan"),rs.getInt("trangThaiThanhToan"),rs.getTimestamp("ngayLapHoaDon"),rs.getString("ghiChu"));
+				Item = new Bill(rs.getInt("idHoaDon"),rs.getInt("idNhanVien"),rs.getInt("idBan"),rs.getInt("trangThaiThanhToan"),rs.getFloat("tongTien"),rs.getTimestamp("ngayLapHoaDon"),rs.getString("ghiChu"));
 			}
 			
 		} catch (SQLException e) {
@@ -232,6 +233,31 @@ public class BillDao {
 		}
 		
 		
+		
+	}
+	public void setSumMoney(int idBill, float money) {
+		conn = lb.getConnectMySQL();
+		String query = "UPDATE  hoadon SET  tongTien= ? WHERE idHoaDon =? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setFloat(1, money);
+			pst.setInt(2, idBill);
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		
 	}
 

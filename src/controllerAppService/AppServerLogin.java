@@ -37,14 +37,14 @@ public class AppServerLogin {
 					
 				} else {
 					String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-					alCheck.add(new LoginedAccount(username, uuid));
+					alCheck.add(new LoginedAccount(username, uuid,Item.getId_NV()));
 					result.setValue(uuid);
 					
 				}
 			}
 			}else{
 				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-				alCheck.add(new LoginedAccount(username, uuid ));
+				alCheck.add(new LoginedAccount(username, uuid,Item.getId_NV() ));
 				result.setValue(uuid);
 				
 			}

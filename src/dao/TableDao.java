@@ -162,13 +162,13 @@ public class TableDao {
 		return result;
 	}
 
-	public void setStatusTable(int idTable) {
+	public void setStatusTable(int idTable, int status) {
 		conn = lb.getConnectMySQL();
 		String query = "UPDATE  ban SET  trangThai =? WHERE idBan =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,0 );
+			pst.setInt(1,status );
 			pst.setInt(2,idTable );
 			
 			pst.executeUpdate();

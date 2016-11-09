@@ -54,6 +54,7 @@ public class DetailBillDao {
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1, Item.getId_bill());
+			System.out.println("thu "+Item.getId_bill());
 			pst.setInt(2, Item.getId_menu());
 			pst.setInt(3, Item.getCount_menu());
 			pst.setFloat(4, Item.getCount_money());
@@ -177,10 +178,11 @@ public class DetailBillDao {
 		String query = "SELECT * FROM  chitiethoadon WHERE idHoaDon =?  ";
 		try {
 			pst = conn.prepareStatement(query);
-			rs = pst.executeQuery();
 			pst.setInt(1, idBill);
+			rs = pst.executeQuery();
+			System.out.println(query);
 			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("id"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				Item = new DetailBill(rs.getInt("idChiTietHoaDon"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -197,6 +199,38 @@ public class DetailBillDao {
 			}
 		}
 		return alItem;
+	}
+
+
+	public float getSumMoney(int idBill) {
+		conn = lb.getConnectMySQL();
+		float money =0;
+		String query = "SELECT sum(soTien) AS total FROM  chitiethoadon WHERE idHoaDon =? ";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,idBill );
+			rs = pst.executeQuery();
+			while(rs.next()){
+				money += rs.getInt("total");
+				System.out.println("i"+money);
+			}
+			System.out.println(money);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return money;
 	}
 
 }

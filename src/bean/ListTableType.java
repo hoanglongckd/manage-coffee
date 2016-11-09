@@ -18,4 +18,9 @@ public class ListTableType<T> {
 		this.value = tableList;
 	}
 
+	public ListTableType() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

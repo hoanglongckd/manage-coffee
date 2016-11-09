@@ -16,6 +16,7 @@ import bean.Order;
 import bean.OrderList;
 import bean.PrimitiveType;
 import bo.BillBo;
+import bo.CostBo;
 import bo.DetailBillBo;
 import bo.OrderBo;
 import bo.TableBo;
@@ -26,6 +27,7 @@ public class AppServerOrder {
 	BillBo billBo = new BillBo();
 	DetailBillBo detailBillBo = new DetailBillBo();
 	TableBo tableBo = new TableBo();
+	CostBo costBo = new CostBo();
 
 	@GET
 	@Path("/list")
@@ -44,11 +46,18 @@ public class AppServerOrder {
 		if (!listLoginedAccounts.isEmpty()) {
 			for (LoginedAccount loginedAccount : listLoginedAccounts) {
 				if (Item.getKey().equals(loginedAccount.getKey())) {
-					int idBill = billBo.addItem(new Bill(Item.getIdTable(), Item.getIdStaff()));
-					tableBo.setStatusTable(Item.getIdTable());
+					int idBill = billBo.addItem(new Bill(Item.getIdTable(), loginedAccount.getIdStaff()));
+
+					tableBo.setStatusTable(Item.getIdTable(), 1);
+
 					for (Order order : Item.getOrders()) {
-						detailBillBo.addItem(new DetailBill(idBill, order.getId_menu(), order.getCount_menu()));
+						float money = costBo.getItemByIdMenu(order.getId_menu()).getCost() * order.getCount_menu();
+						detailBillBo.addItem(
+								new DetailBill(0, idBill, order.getId_menu(), order.getCount_menu(), money, 0));
+						
 					}
+					float money = detailBillBo.getSumMoney(idBill);
+					billBo.setSumMoney(idBill, money);
 					result.setValue(1);
 					break;
 				} else {
@@ -61,4 +70,5 @@ public class AppServerOrder {
 
 		return Response.status(200).entity(result).build();// just test
 	}
+
 }

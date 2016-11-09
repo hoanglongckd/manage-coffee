@@ -39,5 +39,10 @@ public class BillBo {
 		
 	}
 
+	public void setSumMoney(int idBill, float moeny) {
+		itemDao.setSumMoney(idBill,moeny);
+		
+	}
+
 	
 }
