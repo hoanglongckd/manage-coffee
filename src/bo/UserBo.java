@@ -15,4 +15,8 @@ public class UserBo {
 		
 	}
 
+	public User getItemByIdNhanVien(int idNhanVien) {
+		return userDao.getItemByIdNhanVien(idNhanVien);
+	}
+
 }
