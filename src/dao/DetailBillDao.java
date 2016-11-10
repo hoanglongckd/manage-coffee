@@ -175,14 +175,14 @@ public class DetailBillDao {
 		DetailBill Item = null;
 		ArrayList<DetailBill> alItem = new ArrayList<DetailBill>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chitiethoadon WHERE idHoaDon =?  ";
+		String query = "SELECT * FROM  chitiethoadon INNER JOIN giatien ON chitiethoadon.idThucDon = giatien.idThucDon  WHERE idHoaDon =?  ";
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1, idBill);
 			rs = pst.executeQuery();
 			System.out.println(query);
 			while (rs.next()) {
-				Item = new DetailBill(rs.getInt("idChiTietHoaDon"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"));
+				Item = new DetailBill(rs.getInt("idChiTietHoaDon"),rs.getInt("idHoaDon"),rs.getInt("idThucDon"),rs.getInt("soLuong"), rs.getFloat("soTien"),rs.getInt("trangThaiPhucVu"),rs.getFloat("giaTien"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {

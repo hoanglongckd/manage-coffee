@@ -8,11 +8,13 @@ public class Menu {
 	private int id_Menu;
 	private int id_picture;
 	private String name_pictute;
+	private String link;
 	//private int id_Shop;
 	//private int id_type_Menu;
 	//private  int id_Cost;
 	private String name;
 	private int count;
+	private float price;
 	//private  int kieuchebien;
 	//private  int mota;
 	public int getId_Menu() {
@@ -32,6 +34,7 @@ public class Menu {
 	public void setId_picture(int id_picture) {
 		this.id_picture = id_picture;
 	}
+	
 	
 //	public int getId_Shop() {
 //		return id_Shop;
@@ -71,6 +74,35 @@ public class Menu {
 //	}
 //	
 	
+	
+
+	public float getPrice() {
+		return price;
+	}
+
+	public Menu(int id_Menu, int id_picture, String name_pictute, String link, String name, int count, float price) {
+	super();
+	this.id_Menu = id_Menu;
+	this.id_picture = id_picture;
+	this.name_pictute = name_pictute;
+	this.link = link;
+	this.name = name;
+	this.count = count;
+	this.price = price;
+}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public String getName_pictute() {
 		return name_pictute;
 	}

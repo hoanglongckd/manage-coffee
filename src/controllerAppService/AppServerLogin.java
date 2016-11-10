@@ -19,43 +19,43 @@ import bo.UserBo;
 public class AppServerLogin {
 	static ArrayList<LoginedAccount> alCheck = new ArrayList<LoginedAccount>();
 	UserBo userBo = new UserBo();
-	
+
 	@GET
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response Login(@QueryParam("username") String username, @QueryParam("password") String password) {
 		// boolean check = userBo.CheckLogin(username, password);
 		PrimitiveType<String> result = new PrimitiveType<>();
-		
+
 		User Item = userBo.CheckLogin(username, password);
 		if (Item != null) {
-			if(!alCheck.isEmpty()){
-			for (LoginedAccount checkLogin : alCheck) {
-				
-				if (Item.getUsername().equals(checkLogin.getUsername())) {
-					result.setValue("false");
-					
-				} else {
-					String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-					alCheck.add(new LoginedAccount(username, uuid,Item.getId_NV()));
-					result.setValue(uuid);
-					
+			if (!alCheck.isEmpty()) {
+				for (LoginedAccount checkLogin : alCheck) {
+
+					if (Item.getUsername().equals(checkLogin.getUsername())) {
+						alCheck.remove(checkLogin);
+						String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+						alCheck.add(new LoginedAccount(username, uuid, Item.getId_NV()));
+						result.setValue(uuid);
+
+					} else {
+						String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+						alCheck.add(new LoginedAccount(username, uuid, Item.getId_NV()));
+						result.setValue(uuid);
+
+					}
 				}
-			}
-			}else{
+			} else {
 				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-				alCheck.add(new LoginedAccount(username, uuid,Item.getId_NV() ));
+				alCheck.add(new LoginedAccount(username, uuid, Item.getId_NV()));
 				result.setValue(uuid);
-				
+
 			}
 		} else {
 			result.setValue("false");
-			
+
 		}
-		for(LoginedAccount h: alCheck){
-			System.out.println("i : "+h.getUsername());
-			System.out.println("p"+h.getKey());
-		}
+
 		return Response.status(200).entity(result).build();
 	}
 
