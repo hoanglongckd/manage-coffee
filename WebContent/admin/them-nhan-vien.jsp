@@ -8,7 +8,6 @@
 <!-- Page Content -->
 <% 
 //int idQuan=Integer.parseInt(request.getAttribute("nhanVien")+"");
-int idQuan = 1;
 %>
 
 <div id="page-wrapper">
@@ -25,21 +24,24 @@ int idQuan = 1;
 					method="POST">
 					<div class="form-group">
 						<label>Ảnh: </label> <input class="form-control" type="text"
-							name="anh" value=""/>
+							name="anh" value="" placeholder="Nhập đường dẫn của ảnh" />
 					</div>
 					<div class="form-group">
 						<label>Quán: </label> <input class="form-control" type="text"
-							name="quan" value=<%=idQuan%> readonly="read-ony"/>
+							name="quan" value="Moc Coffee" readonly="read-ony"/>
 					</div>
 					<div class="form-group">
 						<label>Tên: </label> <input class="form-control" type="text"
 							name="ten" value=""/>
 					</div>
 					<div class="form-group">
-						<label>Ghi chú </label> <input class="form-control" 
-							name="ghichu" value=""/>
+						<label>Ghi chú: </label> 
 					</div>
-					
+					<div>
+						<textarea rows="4" cols="50" name= "ghiChu">
+						</textarea>
+					</div>
+					<br/>
 					<button type="submit" name="submit" class="btn btn-default">Add</button>
 					<button type="submit" class="btn btn-default">Cancel</button>
 					<button type="reset" class="btn btn-default">Reset</button>

@@ -23,12 +23,13 @@
 						Danh sách <small>Nhân viên</small>
 					</h1>
 				</div>
+				<jsp:include page="../_message-block.jsp" />
 				<!-- /.col-lg-12 -->
 				<table class="table table-striped table-bordered table-hover"
 					id="dataTables-example">
 					<thead>
 						<tr align="center">
-							<th> Id</th>
+							<th> Stt</th>
 							<th> Ảnh</th>
 							<th> Tên quán</th>
 							<th> Tên nhân viên</th>
@@ -39,20 +40,26 @@
 					</thead>
 					<tbody>
 					
-						<% for (NhanVien a : listNhanVien){
+						<% int  i=1;
+						for (NhanVien a : listNhanVien){
+							
 							%>
 								<tr >
-									<td><%=a.getId()%></td>
-									<td> Ảnh</td>
+									<td><%=i%></td>
+									<td>
+										<img src="<%=a.getDuongDanAnh() %>" alt="No Image" width="50" />
+									</td>
 									
-									<td> Tên Quán</td>
+									<td> <%=a.getTenQuan() %></td>
 									
 									<td><%=a.getTen()%></td>
 									<td><%=a.getGhiChu() %></td>									
-									<td><i class="fa fa-pencil"></i> <a href="<%=request.getContextPath()%>/admin/updateNhanVien?idNhanVien=<%=a.getId()%>"> Update</a> </td>
-									<td><i class="fa fa-trash-o fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/deleteNhanVien?idNhanVien=<%=a.getId()%>"> Delete</a></td>
+									<td><i class="fa fa-pencil"></i> <a href="<%=request.getContextPath()%>/admin/updateNhanVien?idNhanVien=<%=a.getId()%>"> Detail</a> </td>
+									<td><i class="fa fa-trash-o fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/deleteNhanVien?idNhanVien=<%=a.getId()%>" onClick="return Warning();"> Delete</a></td>
 								</tr>
-						 <%}%>
+						 <%
+						 i++;
+						 }%>
 					</tbody>
 				</table>
 			</div>
@@ -63,7 +70,15 @@
 	<!-- /#page-wrapper -->
 
 </div>
-
+<script>
+function Warning(){
+    var retVal = confirm("Do you want to delete ?");
+    if( retVal == true ){
+       return true;
+    }
+       return false;
+ }
+</script>
 </body>
 
 </html>

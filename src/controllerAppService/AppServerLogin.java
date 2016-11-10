@@ -25,7 +25,7 @@ public class AppServerLogin {
 		User Item = userBo.CheckLogin(username, password);
 		if (Item != null) {
 			System.out.println("asfha");
-			if (Item.getStatus() == 0) {
+			if (1 == 0) {
 				result.setValue(Item.getId_user());
 				userBo.setItemInStatus(Item.getId_user());
 			} else {

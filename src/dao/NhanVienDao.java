@@ -20,13 +20,42 @@ public class NhanVienDao {
 		NhanVien Item = null;
 		ArrayList<NhanVien> alItem = new ArrayList<NhanVien>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM NhanVien ";
+		String query = "SELECT * FROM nhanvien ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new NhanVien(rs.getInt("id"),rs.getInt("idAnh"),rs.getInt("idQuan"),
-						rs.getString("Ten"),rs.getString("Ghi_Chu"));
+				Item = new NhanVien(rs.getInt("idNhanVien"),rs.getString("duongDan"),rs.getString("tenQuan"),
+						rs.getString("tenNhanVien"),rs.getString("ghiChu"));
+				alItem.add(Item);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return alItem;
+	}
+	
+	public ArrayList<NhanVien> getListNhanVienDetailByIdQuan(int i) {
+		NhanVien Item = null;
+		ArrayList<NhanVien> alItem = new ArrayList<NhanVien>();
+		conn = lb.getConnectMySQL();
+		String query = "SELECT nhanvien.idNhanVien,nhanvien.tenNhanVien, anh.duongDan,quan.tenQuan,nhanvien.ghiChu FROM nhanvien, anh, quan Where nhanvien.idAnh = anh.idAnh and nhanvien.idQuan = quan.idQuan and quan.idQuan ="+i;
+		try {
+			pst = conn.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Item = new NhanVien(rs.getInt("idNhanVien"),rs.getString("duongDan"),rs.getString("tenQuan"),
+						rs.getString("tenNhanVien"),rs.getString("ghiChu"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -48,7 +77,7 @@ public class NhanVienDao {
 	public boolean addNhanVien(NhanVien NhanVien) {
 		conn = lb.getConnectMySQL();
 		boolean result =true;
-		String query = "INSERT INTO nhanvien(idAnh, idQuan, ten, Ghi_Chu) VALUES(?,?,?,?)";
+		String query = "INSERT INTO nhanvien(idAnh, idQuan, tenNhanVien, ghiChu) VALUES(?,?,?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -79,7 +108,7 @@ public class NhanVienDao {
 	public boolean editNhanVien(NhanVien NhanVien) {
 		conn = lb.getConnectMySQL();
 		boolean result = true;
-		String query = "UPDATE  NhanVien SET idAnh =?, idQuan =?, Ten =?  Ghi_Chu = ? WHERE id =? LIMIT 1";
+		String query = "UPDATE  NhanVien SET idAnh =?, idQuan =?, tenNhanVien =?  ghiChu = ? WHERE idNhanVien =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -113,15 +142,15 @@ public class NhanVienDao {
 		NhanVien objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM NhanVien WHERE id = ? LIMIT 1";
+		String query = "SELECT * FROM NhanVien WHERE idNhanVien = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,taId );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new NhanVien(rs.getInt("id"),rs.getInt("idAnh"),rs.getInt("idQuan"),
-						rs.getString("Ten"),rs.getString("Ghi_Chu"));
+				objItem = new NhanVien(rs.getInt("idNhanVien"),rs.getInt("idAnh"),rs.getInt("idQuan"),
+						rs.getString("tenNhanVien"),rs.getString("ghiChu"));
 			}
 			
 		} catch (SQLException e) {
@@ -144,7 +173,8 @@ public class NhanVienDao {
 	public int delNhanVienByID(int tid) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  NhanVien WHERE Id =? LIMIT 1";
+		String query = "DELETE FROM  NhanVien WHERE idNhanVien =? LIMIT 1";
+		System.out.println(query);
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,tid );
