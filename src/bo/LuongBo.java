@@ -23,9 +23,6 @@ public class LuongBo {
 	public ArrayList<Luong> getListLuong() {
 		return LuongDao.getListLuong();
 	}
-	public ArrayList<Luong> getListLuong(int idQuan) {
-		return LuongDao.getListLuong(idQuan);
-	}
 
 	public boolean addItem(Luong Luong) {
 		return LuongDao.addLuong(Luong);
@@ -34,10 +31,12 @@ public class LuongBo {
 		return LuongDao.editLuong(Luong);
 	}
 	
-	public Luong getItemById(int id){
-		return LuongDao.getItemByID(id);
+	public Luong getItemByIdLuong(int id){
+		return LuongDao.getItemById(id);
 	}
-	
+	public Luong getItemByIdNhanVien(int id){
+		return LuongDao.getItemByIdNhanVien(id);
+	}
 
 	
 //	public Luong getItemById(int taId) {
@@ -46,7 +45,7 @@ public class LuongBo {
 //	}
 
 	public boolean delItem(int tid) {
-		if(LuongDao.delLuongByID(tid)==1)
+		if(LuongDao.delLuongById(tid)==1)
 			return true;
 		else return false;
 	}

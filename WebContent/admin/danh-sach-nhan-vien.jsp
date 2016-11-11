@@ -1,3 +1,4 @@
+<%@page import="bean.Luong"%>
 <%@page import="bean.NhanVien"%>
 <%@page import="java.util.ArrayList"%>
 <%@  page language="java" contentType="text/html; charset=UTF-8"
@@ -13,7 +14,10 @@
 	if(request.getAttribute("listNhanVien")!=null){
 		listNhanVien = (ArrayList<NhanVien>)request.getAttribute("listNhanVien");
 	}
-	else System.out.print("List nhan vien null");
+	ArrayList<Luong> listLuongNhanVien = null;
+	if(request.getAttribute("listLuongNhanVien")!=null){
+		listLuongNhanVien = (ArrayList<Luong>)request.getAttribute("listLuongNhanVien");
+	}
 	%>
 	<div id="page-wrapper">
 		<div class="container-fluid">
@@ -23,17 +27,18 @@
 						Danh sách <small>Nhân viên</small>
 					</h1>
 				</div>
-				<jsp:include page="../_message-block.jsp" />
+				
 				<!-- /.col-lg-12 -->
-				<table class="table table-striped table-bordered table-hover"
-					id="dataTables-example">
+				<jsp:include page="../_message-block.jsp" />
+				
+				<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 					<thead>
 						<tr align="center">
 							<th> Stt</th>
 							<th> Ảnh</th>
 							<th> Tên quán</th>
 							<th> Tên nhân viên</th>
-							<th> Ghi chú</th>
+							<th> Lương</th>
 							<th> Edit</th>
 							<th> Delete</th>
 						</tr>
@@ -53,7 +58,22 @@
 									<td> <%=a.getTenQuan() %></td>
 									
 									<td><%=a.getTen()%></td>
-									<td><%=a.getGhiChu() %></td>									
+									
+									<%
+									boolean check=false;
+									for(Luong luong : listLuongNhanVien){
+										if(luong.getIdNhanVien() == a.getId()){
+									%>
+									<td><%=luong.getLuong() %></td>		
+									<%
+										check=true;
+										break;
+										}
+									}
+									if(check!=true){
+									%>
+									<td>Null</td>
+									<%} %>						
 									<td><i class="fa fa-pencil"></i> <a href="<%=request.getContextPath()%>/admin/updateNhanVien?idNhanVien=<%=a.getId()%>"> Detail</a> </td>
 									<td><i class="fa fa-trash-o fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/deleteNhanVien?idNhanVien=<%=a.getId()%>" onClick="return Warning();"> Delete</a></td>
 								</tr>

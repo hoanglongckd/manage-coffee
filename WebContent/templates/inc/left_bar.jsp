@@ -22,13 +22,13 @@
                         </li>
                        
                         <li>
-                            <a href="<%=request.getContextPath()%>/admin/personnel.jsp"><i class="fa fa-users fa-fw"></i> Personnel<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Quản lý nhân viên<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/admin/personnel.jsp">List Personnel</a>
+                                    <a href="<%=request.getContextPath()%>/admin/listNhanVien"> Danh sách nhân viên</a>
                                 </li>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/admin/addPer.jsp">Add Personnel</a>
+                                    <a href="<%=request.getContextPath()%>/admin/addNhanVien"> Thêm nhân viên</a>
                                 </li>
                                 
                             </ul>

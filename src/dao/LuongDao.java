@@ -25,7 +25,7 @@ public class LuongDao {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("Luong"));
+				Item = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("soTien"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -44,38 +44,11 @@ public class LuongDao {
 		return alItem;
 	}
 	
-	public ArrayList<Luong> getListLuong(int idQuan) {
-		Luong Item = null;
-		ArrayList<Luong> alItem = new ArrayList<Luong>();
-		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM Luong where idQuan ="+idQuan;
-		try {
-			pst = conn.prepareStatement(query);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				Item = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("Luong"));
-				alItem.add(Item);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return alItem;
-	}
 
 	public boolean addLuong(Luong Luong) {
 		conn = lb.getConnectMySQL();
 		boolean result =true;
-		String query = "INSERT INTO Luong(idNhanVien,luong) VALUES(?,?)";
+		String query = "INSERT INTO Luong(idNhanVien,soTien) VALUES(?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -104,7 +77,7 @@ public class LuongDao {
 	public boolean editLuong(Luong Luong) {
 		conn = lb.getConnectMySQL();
 		boolean result = true;
-		String query = "UPDATE  Luong SET Luong =? WHERE idLuong =? LIMIT 1";
+		String query = "UPDATE  Luong SET soTien =? WHERE idLuong =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -131,7 +104,7 @@ public class LuongDao {
 		
 	}
 
-	public Luong getItemByID(int taId) {
+	public Luong getItemById(int taId) {
 		Luong objItem = null;
 		conn = lb.getConnectMySQL();
 		
@@ -142,7 +115,7 @@ public class LuongDao {
 			pst.setInt(1,taId );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("Luong"));
+				objItem = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("soTien"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -160,8 +133,36 @@ public class LuongDao {
 		}
 		return objItem;
 	}
-
-	public int delLuongByID(int tid) {
+	public Luong getItemByIdNhanVien(int idNhanVien) {
+		Luong objItem = null;
+		conn = lb.getConnectMySQL();
+		
+		String query = "SELECT * FROM Luong WHERE idNhanVien = ? LIMIT 1";
+		
+		try {
+			pst = conn.prepareStatement(query);
+			pst.setInt(1,idNhanVien );
+			rs = pst.executeQuery();
+			if(rs.next()){
+				objItem = new Luong(rs.getInt("idLuong"),rs.getInt("idNhanVien"),rs.getInt("soTien"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return objItem;
+	}
+	public int delLuongById(int tid) {
 		conn = lb.getConnectMySQL();
 		int result =0;
 		String query = "DELETE FROM  Luong WHERE idLuong =? LIMIT 1";

@@ -19,4 +19,14 @@ public class UserBo {
 		return userDao.getItemByIdNhanVien(idNhanVien);
 	}
 
+	public boolean editItem(User user) {
+		return userDao.editUser(user);		
+	}
+
+	public boolean addItem(User user) {
+		return userDao.addUser(user);
+	}
+	public boolean checkExistUsername(String username, int idNhanVien){
+		return userDao.checkExistUsername(username,idNhanVien);
+	}
 }

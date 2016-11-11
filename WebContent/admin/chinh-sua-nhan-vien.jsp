@@ -1,3 +1,4 @@
+<%@page import="bean.Luong"%>
 <%@page import="bean.User"%>
 <%@page import="bean.Anh"%>
 <%@page import="bean.NhanVien"%>
@@ -13,6 +14,9 @@
 	User user = null;
 	if(request.getAttribute("user")!=null)
 		user = (User) request.getAttribute("user");
+	Luong luong = null;
+	if(request.getAttribute("luong")!=null)
+		luong = (Luong) request.getAttribute("luong");
 %>
 
 <div id="page-wrapper">
@@ -24,12 +28,19 @@
 				</h1>
 			</div>
 			<!-- /.col-lg-12 -->
+			<jsp:include page="../_message-block.jsp" />
 			<div class="col-lg-7" style="padding-bottom: 120px">
 				<form action="${pageContext.request.contextPath}/admin/updateNhanVien"
 					method="POST">
+					<div>
+					<input type="hidden"name="idNhanVien" value="<%=nhanVien.getId()%>"/>
+					</div>
 					<div class="form-group">
-						<label>Ảnh: </label><br/> 
-						<img src="<%=anh.getDuongDan() %>" alt="No Image" width="150" />
+						<label>Ảnh: </label><br/>
+						<img src="<%=anh.getDuongDan() %>" alt="Link anh khong ton tai" width="150" />
+						<br/>
+						<br/>
+						<input class="form-control" type="text"	name="duongDan" value="<%=anh.getDuongDan() %>" />
 					</div>
 					<div class="form-group">
 						<label>Quán: </label> <input class="form-control" type="text"
@@ -40,6 +51,21 @@
 							name="ten" value="<%=nhanVien.getTen()%>"/>
 					</div>
 					<%
+					if(luong!=null){
+					%>
+					<div class="form-group">
+						<label>Lương theo tháng: </label> <input class="form-control" type="text"
+							name="luong" value="<%=luong.getLuong()%>" />
+					</div>
+					<%
+					}else{
+					%>	
+					<div class="form-group">
+					<label>Lương theo tháng: </label> <input class="form-control" type="text"
+							name="luong" value="" placeholder="Nhập lương của nhân viên" />
+					</div>
+					<%	
+					}
 					if(user!=null){
 					%>
 					<div class="form-group">
@@ -69,9 +95,9 @@
 					<%} %>
 					<div class="form-group">
 						<label>Ghi chú </label> <textarea  rows="5" cols="20" class="form-control" 
-							name="ghichu" ><%=nhanVien.getGhiChu() %></textarea>
+							name="ghiChu" ><%=nhanVien.getGhiChu() %></textarea>
 					</div>
-					<button type="submit" class="btn btn-default">Update</button>
+					<button type="submit" class="btn btn-default" onClick="return Warning();">Update</button>
 					<button type="reset" class="btn btn-default">Reset</button>
 				</form>
 			</div>
@@ -81,7 +107,15 @@
 	<!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-
+<script>
+function Warning(){
+    var retVal = confirm("Bạn có chắc chắn muốn thay đổi không ?");
+    if( retVal == true ){
+       return true;
+    }
+       return false;
+ }
+</script>
 </body>
 
 </html>

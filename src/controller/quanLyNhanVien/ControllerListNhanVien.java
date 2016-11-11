@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Luong;
 import bean.NhanVien;
+import bo.LuongBo;
 import bo.NhanVienBo;
 
 
@@ -23,12 +25,17 @@ public class ControllerListNhanVien extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
     	ArrayList<NhanVien> listNhanVien = NhanVienBo.getInstance().getListNhanVienDetailByIdQuan(1);
 		request.setAttribute("listNhanVien", listNhanVien);
+		
+		ArrayList<Luong> listLuongNhanVien = LuongBo.getInstance().getListLuong();
+		request.setAttribute("listLuongNhanVien", listLuongNhanVien);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/admin/danh-sach-nhan-vien.jsp");
 		rd.forward(request, response);
 	}
-
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

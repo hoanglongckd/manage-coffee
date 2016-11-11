@@ -49,7 +49,10 @@ public class NhanVienDao {
 		NhanVien Item = null;
 		ArrayList<NhanVien> alItem = new ArrayList<NhanVien>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT nhanvien.idNhanVien,nhanvien.tenNhanVien, anh.duongDan,quan.tenQuan,nhanvien.ghiChu FROM nhanvien, anh, quan Where nhanvien.idAnh = anh.idAnh and nhanvien.idQuan = quan.idQuan and quan.idQuan ="+i;
+		String query = "SELECT nhanvien.idNhanVien,nhanvien.tenNhanVien, anh.duongDan,quan.tenQuan,nhanvien.ghiChu "
+				+ "FROM nhanvien, anh, quan "
+				+ "Where nhanvien.idAnh = anh.idAnh and nhanvien.idQuan = quan.idQuan and quan.idQuan ="+i+""
+						+ " order BY nhanvien.idNhanVien DESC";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
@@ -108,7 +111,7 @@ public class NhanVienDao {
 	public boolean editNhanVien(NhanVien NhanVien) {
 		conn = lb.getConnectMySQL();
 		boolean result = true;
-		String query = "UPDATE  NhanVien SET idAnh =?, idQuan =?, tenNhanVien =?  ghiChu = ? WHERE idNhanVien =? LIMIT 1";
+		String query = "UPDATE  NhanVien SET idAnh =?, idQuan =?, tenNhanVien =?,  ghiChu = ? WHERE idNhanVien =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
