@@ -58,38 +58,6 @@
     <servlet-name>ControllerDelTable</servlet-name>
     <url-pattern>/admin/delTable</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>ControllerListNhanVien</servlet-name>
-    <servlet-class>controller.ControllerListNhanVien</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControllerListNhanVien</servlet-name>
-    <url-pattern>/admin/listNhanVien</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ControllerUpdateNhanVien</servlet-name>
-    <servlet-class>controller.ControllerUpdateNhanVien</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControllerUpdateNhanVien</servlet-name>
-    <url-pattern>/admin/updateNhanVien</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ControllerDeleteNhanVien</servlet-name>
-    <servlet-class>controller.ControllerDeleteNhanVien</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControllerDeleteNhanVien</servlet-name>
-    <url-pattern>/admin/deleteNhanVien</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ControllerAddNhanVien</servlet-name>
-    <servlet-class>controller.ControllerAddNhanVien</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControllerAddNhanVien</servlet-name>
-    <url-pattern>/admin/addNhanVien</url-pattern>
-  </servlet-mapping>
   
   <servlet>
     <servlet-name>ControllerIndexTypeMenu</servlet-name>
