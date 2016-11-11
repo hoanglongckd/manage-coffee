@@ -8,22 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Process;
+import bean.Material;
 import bo.MaterialBo;
-import bo.MenuBo;
-import bo.ProcessBo;
+import bo.UnitBo;
 
 /**
  * Servlet implementation class ControllerIndexTable
  */
 
-public class ControllerEditProcess extends HttpServlet {
+public class ControllerEditMaterial extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControllerEditProcess() {
+	public ControllerEditMaterial() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,44 +42,40 @@ public class ControllerEditProcess extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProcessBo ItemBo = new ProcessBo();
+		UnitBo uBo = new UnitBo();
 		MaterialBo maBo = new MaterialBo();
-		MenuBo meBo = new MenuBo();
-		request.setAttribute("alItemM", maBo.getList());
-		request.setAttribute("alItemT", meBo.getListMenu());
+		
+		request.setAttribute("alItemU", uBo.getList());
+		request.setAttribute("alItemP", maBo.getListPicture());
 		if (request.getParameter("submit") != null) {
-
-			int id_menu =0;
-			int id = Integer.parseInt(request.getParameter("id"));
-			 int id_material =0;
+			int Id = Integer.parseInt(request.getParameter("id"));
+			int id_picture =0;
 			 
-			 int quantity =0;
+			 int id_unit =0;
+			 String name;
+			 String note;
 			//String name  =new String( request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");
-			 if(request.getParameter("material")!=null){
-				 id_material = Integer.parseInt(request.getParameter("material"));
-			 }
-			
-			 
-			 if(request.getParameter("count")!=null){
-				 quantity = Integer.parseInt(request.getParameter("count"));
+			 if(request.getParameter("picture")!=null){
+				 id_picture = Integer.parseInt(request.getParameter("picture"));
 			 }
 			 
-			 if(request.getParameter("menu")!=null){
-				 id_menu = Integer.parseInt(request.getParameter("menu"));
-			 } 
-			Process Item = new Process(id, id_menu, id_material, 1, quantity);
-			int result = ItemBo.editItem(Item);
+			 if(request.getParameter("unit")!=null){
+				 id_unit = Integer.parseInt(request.getParameter("unit"));
+			 }
+			name  =new String( request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");
+			note = new String( request.getParameter("note").getBytes("ISO-8859-1"),"UTF-8");
+			Material Item = new Material(Id, id_picture, id_unit, 1, name, note);
+			int result = maBo.editItem(Item);
 			if(result >0){
-				response.sendRedirect(request.getContextPath()+"/admin/indexProcess?msg=1");
+				response.sendRedirect(request.getContextPath()+"/admin/indexMaterial?msg=1");
 			}else{
-				response.sendRedirect(request.getContextPath()+"/admin/indexProcess?msg=0");
+				response.sendRedirect(request.getContextPath()+"/admin/indexMaterial?msg=0");
 			}
-
 		} else {
 			int Id = Integer.parseInt(request.getParameter("id"));
-			Process Item = ItemBo.getItemById(Id);
+			Material Item = maBo.getItemById(Id);
 			request.setAttribute("objItem", Item);
-			RequestDispatcher rd = request.getRequestDispatcher("/admin/editProcess.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/admin/editMaterial.jsp");
 			rd.forward(request, response);
 		}
 	}

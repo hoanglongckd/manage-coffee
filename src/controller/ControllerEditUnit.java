@@ -44,9 +44,10 @@ public class ControllerEditUnit extends HttpServlet {
 		UnitBo ItemBo = new UnitBo();
 
 		if (request.getParameter("submit") != null) {
-
-			int id =0;
+			int id = Integer.parseInt(request.getParameter("id"));
 			
+			System.err.println("jahshjdh");
+			System.out.println("á"+request.getParameter("name"));
 			String name  =new String( request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");
 			
 			Unit Item = new Unit(id, name);

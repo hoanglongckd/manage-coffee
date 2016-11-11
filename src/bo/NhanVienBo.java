@@ -52,7 +52,7 @@ public class NhanVienBo {
 //	}
 
 	public boolean delItem(int tid) {
-		if(NhanVienDao.delNhanVienByID(tid)==1)
+		if(NhanVienDao.delNhanVienById(tid)==1)
 			return true;
 		else return false;
 	}

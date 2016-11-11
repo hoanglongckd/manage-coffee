@@ -173,11 +173,10 @@ public class NhanVienDao {
 		return objItem;
 	}
 
-	public int delNhanVienByID(int tid) {
+	public int delNhanVienById(int tid) {
 		conn = lb.getConnectMySQL();
 		int result =0;
 		String query = "DELETE FROM  NhanVien WHERE idNhanVien =? LIMIT 1";
-		System.out.println(query);
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,tid );
@@ -198,5 +197,4 @@ public class NhanVienDao {
 		}
 		return result;
 	}
-
 }

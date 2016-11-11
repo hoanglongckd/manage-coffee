@@ -20,13 +20,14 @@ public class ProcessDao {
 		Process Item = null;
 		ArrayList<Process> alItem = new ArrayList<Process>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  chebien WHERE idQuan = ? ";
+		String query = "SELECT * FROM  chebien INNER JOIN thucdon ON chebien.idThucDon = thucdon.idThucDon INNER JOIN nguyenlieu ON chebien.idNguyenLieu = nguyenlieu.idNguyenLieu WHERE chebien.idQuan = 1 ";
 		try {
 			pst = conn.prepareStatement(query);
+			
 			rs = pst.executeQuery();
-			pst.setInt(1, 1);
+		
 			while (rs.next()) {
-				Item = new Process(rs.getInt("id"), rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("soLuong"), rs.getInt("idThucDon"));
+				Item = new Process(rs.getInt("idCheBien"), rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("soLuong"), rs.getInt("idThucDon"),rs.getString("thucdon.tenThucDon"),rs.getString("nguyenlieu.tenNguyenLieu"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -49,15 +50,17 @@ public class ProcessDao {
 	public int addItem(Process Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO giatien(idNguyenLieu,idQuan,soLuong,idThucDon) VALUES(?,?,?,?)";
+		String query = "INSERT INTO chebien(idQuan,soLuong,idThucDon,idNguyenLieu) VALUES(?,?,?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,Item.getId_material() );
-			pst.setFloat(2, 1);
-			pst.setInt(3, Item.getQuantity());
-			pst.setInt(4, Item.getId_menu());
+			
+			pst.setInt(4,Item.getId_material() );
+			pst.setFloat(1, 1);
+			pst.setInt(2, Item.getQuantity());
+			pst.setInt(3, Item.getId_menu());
 			pst.executeUpdate();
+			
 			result =1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,7 +82,7 @@ public class ProcessDao {
 	public int editItem(Process Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  chebien SET idNguyenLieu= ?,idQuan = ?,soLuong =? ,idThucDon =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  chebien SET idNguyenLieu= ?,idQuan = ?,soLuong =? ,idThucDon =? WHERE idCheBien =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -87,6 +90,7 @@ public class ProcessDao {
 			pst.setInt(2, Item.getId_shop());
 			pst.setInt(3, Item.getQuantity());
 			pst.setInt(4, Item.getId_menu());
+			pst.setInt(5, Item.getId());
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -110,14 +114,14 @@ public class ProcessDao {
 		Process objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM chebien WHERE id = ? LIMIT 1";
+		String query = "SELECT * FROM chebien WHERE idCheBien = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new Process(rs.getInt("id"), rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("soLuong"), rs.getInt("idThucDon"));
+				objItem = new Process(rs.getInt("idCheBien"), rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("soLuong"), rs.getInt("idThucDon"));
 			}
 			
 		} catch (SQLException e) {
@@ -140,7 +144,7 @@ public class ProcessDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  chebien WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  chebien WHERE idCheBien =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);

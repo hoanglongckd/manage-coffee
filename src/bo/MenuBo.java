@@ -11,5 +11,7 @@ public class MenuBo {
 	public ArrayList<Menu> getListMenu() {
 		return menuDao.getListMenu();
 	}
-
+	public ArrayList<Menu> getList() {
+		return menuDao.getList();
+	}
 }

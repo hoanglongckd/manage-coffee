@@ -20,13 +20,14 @@ public class StockDao {
 		Stock Item = null;
 		ArrayList<Stock> alItem = new ArrayList<Stock>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM  kho WHERE idQuan = ? ";
+		String query = "SELECT * FROM  kho LEFT JOIN nguyenlieu ON kho.idNguyenLieu = nguyenlieu.idNguyenLieu WHERE kho.idQuan = 1 ";
 		try {
 			pst = conn.prepareStatement(query);
+			
 			rs = pst.executeQuery();
-			pst.setInt(1, 1);
+			
 			while (rs.next()) {
-				Item = new Stock(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("tongSoTrongKho"));
+				Item = new Stock(rs.getInt("idKho"),rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("tongSoTrongKho"),rs.getString("tenNguyenLieu"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -79,7 +80,7 @@ public class StockDao {
 	public int editItem(Stock Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  kho SET idNguyenLieu =? ,idQuan = ?,tongSoTrongKho =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  kho SET idNguyenLieu =? ,idQuan = ?,tongSoTrongKho =? WHERE idKho =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -111,14 +112,14 @@ public class StockDao {
 		Stock objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM kho WHERE id = ?  LIMIT 1";
+		String query = "SELECT * FROM kho WHERE idKho = ?  LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem =  new Stock(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("tongSoTrongKho"));
+				objItem =  new Stock(rs.getInt("idKho"),rs.getInt("idNguyenLieu"),rs.getInt("idQuan"), rs.getInt("tongSoTrongKho"));
 			}
 			
 		} catch (SQLException e) {
@@ -141,7 +142,7 @@ public class StockDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  kho WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  kho WHERE idKho =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);

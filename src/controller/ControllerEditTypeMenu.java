@@ -45,7 +45,7 @@ public class ControllerEditTypeMenu extends HttpServlet {
 
 		if (request.getParameter("submit") != null) {
 
-			int id = Integer.parseInt(request.getParameter("tid"));
+			int id = Integer.parseInt(request.getParameter("tMid"));
 			String name = new String(request.getParameter("nameTable").getBytes("ISO-8859-1"), "UTF-8");
 			
 			 
@@ -60,7 +60,7 @@ public class ControllerEditTypeMenu extends HttpServlet {
 			}
 
 		} else {
-			int taId = Integer.parseInt(request.getParameter("id"));
+			int taId = Integer.parseInt(request.getParameter("tMid"));
 			TypeMenu Item = ItemBo.getItemById(taId);
 			request.setAttribute("objItem", Item);
 			RequestDispatcher rd = request.getRequestDispatcher("/admin/editTypeMenu.jsp");

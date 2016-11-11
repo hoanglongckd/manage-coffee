@@ -80,7 +80,71 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="<%=request.getContextPath()%>/admin/indexTypeMenu"><i class="fa fa-bar-chart-o fa-fw"></i> Type Menu <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/admin/addTypeMenu"> Add Type Menu</a>
+                                </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         
+                         <li>
+                            <a href="<%=request.getContextPath()%>/admin/indexProcess"><i class="fa fa-bar-chart-o fa-fw"></i> Chế Biến <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            	<li>
+                                    <a href="<%=request.getContextPath()%>/admin/indexProcess"> List Chế biến</a>
+                                </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/admin/addProcess"> Thêm Chế biến</a>
+                                </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="<%=request.getContextPath()%>/admin/indexUnit"><i class="fa fa-bar-chart-o fa-fw"></i> Đơn Vị Tinh <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li>
+                                    <a href="<%=request.getContextPath()%>/admin/indexUnit"> List Đơn Vị Tính</a>
+                                </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/admin/addUnit"> Thêm Đơn Vị Tính</a>
+                                </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                         <li>
+                            <a href="<%=request.getContextPath()%>/admin/indexStock"><i class="fa fa-bar-chart-o fa-fw"></i> Nguyên Liệu Trong Kho <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/admin/indexStock"> List nguyên liệu trong kho</a>
+                                </li>
+                                 <li>
+                                    <a href="<%=request.getContextPath()%>/admin/addStock"> Thêm nguyên liệu trong kho</a>
+                                </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="<%=request.getContextPath()%>/admin/indexMaterial"><i class="fa fa-bar-chart-o fa-fw"></i> Nguyên Liệu <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/admin/indexMaterial"> Danh Sách Nguyên Liệu</a>
+                                </li>
+                               	<li>
+                                    <a href="<%=request.getContextPath()%>/admin/addMaterial"> Thêm Nguyên Liệu</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

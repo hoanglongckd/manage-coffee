@@ -135,6 +135,12 @@ public class Menu {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public Menu(int id_Menu, String name) {
+		super();
+		this.id_Menu = id_Menu;
+		this.name = name;
+	}
 	
 
 }
