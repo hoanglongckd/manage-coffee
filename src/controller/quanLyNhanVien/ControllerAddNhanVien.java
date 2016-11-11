@@ -1,6 +1,9 @@
 package controller.quanLyNhanVien;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,15 +35,17 @@ public class ControllerAddNhanVien extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("submit")!=null){
-			
 			String hoTen = request.getParameter("ten");
-			int idQuan =1; 
 			String ghiChu = request.getParameter("ghiChu");
 			String duongDan =request.getParameter("anh");
 			//them anh
-			Anh anh = new Anh(0,"NhanVien",duongDan,1);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			String tenAnh = dateFormat.format(cal.getTime());
+			System.out.println(tenAnh);
+			Anh anh = new Anh(0,tenAnh,duongDan,1);
 			AnhBo.getInstance().addItem(anh);
-			anh = AnhBo.getInstance().getItemByLink(duongDan);
+			anh = AnhBo.getInstance().getItemByName(tenAnh);
 			//them NhanVien
 			NhanVien nhanVien = new NhanVien(0,anh.getId(),1,hoTen,ghiChu);
 			boolean valid = NhanVienBo.getInstance().addItem(nhanVien);

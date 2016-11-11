@@ -191,15 +191,15 @@ public class AnhDao {
 		return result;
 	}
 
-	public Anh getItemByLink(String duongDan) {
+	public Anh getItemByName(String tenAnh) {
 		Anh objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM Anh WHERE duongDan = ? LIMIT 1";
+		String query = "SELECT * FROM Anh WHERE ten = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setString(1, duongDan);
+			pst.setString(1, tenAnh);
 			rs = pst.executeQuery();
 			if(rs.next()){
 				objItem = new Anh(rs.getInt("idAnh"),rs.getString("ten"),rs.getString("duongDan"),

@@ -29,15 +29,8 @@ public class AppServerLogin {
 
 		User Item = userBo.CheckLogin(username, password);
 		if (Item != null) {
-
-			System.out.println("asfha");
-			if (1 == 0) {
-				result.setValue(Item.getId_user());
-				userBo.setItemInStatus(Item.getId_user());
-
 			if (!alCheck.isEmpty()) {
 				for (LoginedAccount checkLogin : alCheck) {
-
 					if (Item.getUsername().equals(checkLogin.getUsername())) {
 						alCheck.remove(checkLogin);
 						String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -48,19 +41,15 @@ public class AppServerLogin {
 						String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 						alCheck.add(new LoginedAccount(username, uuid, Item.getId_NV()));
 						result.setValue(uuid);
-
 					}
 				}
-
 			} else {
 				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 				alCheck.add(new LoginedAccount(username, uuid, Item.getId_NV()));
 				result.setValue(uuid);
-
 			}
 		} else {
 			result.setValue("false");
-
 		}
 		return Response.status(200).entity(result).build();
 	}

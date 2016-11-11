@@ -50,7 +50,7 @@ public class AnhBo {
 			return true;
 		else return false;
 	}
-	public Anh getItemByLink(String duongDan) {
-		return AnhDao.getItemByLink(duongDan);
+	public Anh getItemByName(String tenAnh) {
+		return AnhDao.getItemByName(tenAnh);
 	}
 }

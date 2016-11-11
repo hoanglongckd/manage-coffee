@@ -43,7 +43,6 @@
 					</div>
 					<br/>
 					<button type="submit" name="submit" class="btn btn-default">Add</button>
-					<button type="submit" class="btn btn-default">Cancel</button>
 					<button type="reset" class="btn btn-default">Reset</button>
 				</form>
 			</div>
