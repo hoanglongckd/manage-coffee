@@ -25,7 +25,7 @@ public class UnitDao {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Unit(rs.getInt("id"), rs.getString("tenDonViTinh"));
+				Item = new Unit(rs.getInt("idDonViTinh"), rs.getString("tenDonViTinh"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -48,7 +48,7 @@ public class UnitDao {
 	public int addItem(Unit Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO donvitinh(tenDonViTinh) VALUES(?,?,?,?)";
+		String query = "INSERT INTO donvitinh(tenDonViTinh) VALUES(?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -75,7 +75,7 @@ public class UnitDao {
 	public int editItem(Unit Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  donvitinh SET tenDonViTinh= ? WHERE id =? LIMIT 1";
+		String query = "UPDATE  donvitinh SET tenDonViTinh= ? WHERE idDonViTinh =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -105,14 +105,14 @@ public class UnitDao {
 		Unit objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM donvitinh WHERE id = ? LIMIT 1";
+		String query = "SELECT * FROM donvitinh WHERE idDonViTinh = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem =  new Unit(rs.getInt("id"), rs.getString("tenDonViTinh"));
+				objItem =  new Unit(rs.getInt("idDonViTinh"), rs.getString("tenDonViTinh"));
 			}
 			
 		} catch (SQLException e) {
@@ -135,7 +135,7 @@ public class UnitDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  donvitinh WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  donvitinh WHERE idDonViTinh =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);

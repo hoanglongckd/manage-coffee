@@ -15,7 +15,7 @@ public class MenuDao {
 	private ResultSet rs;
 
 	LibraryConnectDb lb = new LibraryConnectDb();
-
+	
 	public ArrayList<Menu> getListMenu() {
 		Menu Item = null;
 		ArrayList<Menu> alItem = new ArrayList<Menu>();
@@ -43,5 +43,31 @@ public class MenuDao {
 		}
 		return alItem;
 	}
-
+	public ArrayList<Menu> getList() {
+		Menu Item = null;
+		ArrayList<Menu> alItem = new ArrayList<Menu>();
+		conn = lb.getConnectMySQL();
+		String query = "SELECT * FROM thucdon  WHERE thucdon.idQuan =1 ";
+		try {
+			pst = conn.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Item = new Menu(rs.getInt("idThucDon"),rs.getString("tenThucDon"));
+				alItem.add(Item);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return alItem;
+	}
 }

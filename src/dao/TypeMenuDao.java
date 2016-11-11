@@ -21,12 +21,12 @@ public class TypeMenuDao {
 		TypeMenu Item = null;
 		ArrayList<TypeMenu> alItem = new ArrayList<TypeMenu>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM loaithuctap ";
+		String query = "SELECT * FROM loaithucpham ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new TypeMenu(rs.getInt("id"), rs.getString("tenLoaiThucTham"));
+				Item = new TypeMenu(rs.getInt("idLoaiThucPham"), rs.getString("tenLoaiThucPham"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -75,7 +75,7 @@ public class TypeMenuDao {
 	public int editTable(TypeMenu typeMenu) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  loaithucdon SET tenLoaiThucPham =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  loaithucpham SET tenLoaiThucPham =? WHERE idLoaiThucPham =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -104,14 +104,14 @@ public class TypeMenuDao {
 		TypeMenu objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM loaithucdon WHERE id = ? LIMIT 1";
+		String query = "SELECT * FROM loaithucpham WHERE idLoaiThucPham = ? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,tyId );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new TypeMenu(rs.getInt("id"), rs.getString("tenLoaiThucPham"));
+				objItem = new TypeMenu(rs.getInt("idLoaiThucPham"), rs.getString("tenLoaiThucPham"));
 			}
 			
 		} catch (SQLException e) {
@@ -134,7 +134,7 @@ public class TypeMenuDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  loaithucdon WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  loaithucpham WHERE idLoaiThucPham =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);

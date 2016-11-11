@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bo.TypeMenuBo;
+import bo.MaterialBo;
 
 /**
  * Servlet implementation class ControllerIndexTable
  */
 
-public class ControllerDelTypeMenu extends HttpServlet {
+public class ControllerDelMaterial extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ControllerDelTypeMenu() {
+    public ControllerDelMaterial() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,13 +35,14 @@ public class ControllerDelTypeMenu extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TypeMenuBo itemBo = new TypeMenuBo();
-		int tid = Integer.parseInt(request.getParameter("tMid"));
-		int result = itemBo.delItem(tid);
+		MaterialBo ItemBo = new MaterialBo();
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		int result = ItemBo.delItem(id);
 		if(result > 0){
-			response.sendRedirect(request.getContextPath()+"/admin/indexTypeMenu?msg=1");
+			response.sendRedirect(request.getContextPath()+"/admin/indexMaterial?msg=1");
 		}else{
-			response.sendRedirect(request.getContextPath()+"/admin/indexTypeMenu?msg=0");
+			response.sendRedirect(request.getContextPath()+"/admin/indexMaterial?msg=0");
 		}
 	}
 

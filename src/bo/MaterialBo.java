@@ -3,6 +3,7 @@ package bo;
 import java.util.ArrayList;
 
 import bean.Material;
+import bean.Picture;
 import dao.MaterialDao;
 
 
@@ -27,6 +28,10 @@ public class MaterialBo {
 
 	public int delItem(int id) {
 		return itemDao.delItemByID(id);
+	}
+
+	public ArrayList<Picture> getListPicture() {
+		return itemDao.getListPicture();
 	}
 
 	
