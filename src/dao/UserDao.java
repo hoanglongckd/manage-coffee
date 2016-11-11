@@ -26,9 +26,8 @@ public class UserDao {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 
-				Item = new User(rs.getInt("id"),rs.getInt("idNguoiQuanLy"),rs.getInt("idNhanVien"),rs.getString("username"),rs.getString("password"));
-
 				Item = new User(rs.getInt("idUser"),rs.getInt("idNguoiQuanLy"),rs.getInt("idNhanVien"),rs.getString("username"),rs.getString("password"));
+
 				
 
 			}
