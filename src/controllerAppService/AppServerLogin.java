@@ -30,11 +30,7 @@ public class AppServerLogin {
 		User Item = userBo.CheckLogin(username, password);
 		if (Item != null) {
 
-			System.out.println("asfha");
-			if (1 == 0) {
-				result.setValue(Item.getId_user());
-				userBo.setItemInStatus(Item.getId_user());
-
+			
 			if (!alCheck.isEmpty()) {
 				for (LoginedAccount checkLogin : alCheck) {
 
