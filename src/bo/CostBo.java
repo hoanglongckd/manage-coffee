@@ -29,5 +29,9 @@ public class CostBo {
 		return itemDao.delItemByID(id);
 	}
 
+	public Cost getItemByIdMenu(int id_menu) {
+		return itemDao.getItemByIdMenu(id_menu);
+	}
+
 	
 }

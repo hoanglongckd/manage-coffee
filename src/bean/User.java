@@ -10,6 +10,7 @@ public class User {
 	private int id_NV;
 	private String username;
 	private String password;
+
 	public String getUsername() {
 		return username;
 	}
@@ -46,6 +47,7 @@ public class User {
 	public void setId_NV(int id_NV) {
 		this.id_NV = id_NV;
 	}
+
 	public User(int id_user, int id_QuanLY, int id_NV, String username, String password) {
 		super();
 		this.id_user = id_user;
@@ -53,6 +55,7 @@ public class User {
 		this.id_NV = id_NV;
 		this.username = username;
 		this.password = password;
+
 	}
 	
 	

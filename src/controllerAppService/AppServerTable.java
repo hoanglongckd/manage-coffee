@@ -1,12 +1,17 @@
 package controllerAppService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import bean.ListTableType;
+import bean.LoginedAccount;
 import bean.Table;
 import bo.TableBo;
 
@@ -21,9 +26,26 @@ public class AppServerTable {
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_XML)
 
-	public ArrayList<Table> getListTable() {
-
-		return taBo.getListTable();
+	public Response getListTable(@QueryParam("key") String key) {
+		ListTableType<List<Table>> result = new ListTableType<>();
+		ArrayList<LoginedAccount> listLoginedAccounts = AppServerLogin.getListLoginedAccounts();
+		if(!listLoginedAccounts.isEmpty()){
+			for (LoginedAccount loginedAccount : listLoginedAccounts) {
+				if(key.equals(loginedAccount.getKey())){
+					
+					List<Table> tableList = taBo.getListTable();
+					result.setValue(tableList);
+					break;
+				}else{
+					
+					result.setValue(null);
+				}
+			}
+		}else{
+			
+			result.setValue(null);
+		}
+		return Response.status(200).entity(result).build();
 
 	}
 	
@@ -32,10 +54,13 @@ public class AppServerTable {
 
 //	@POST
 //	@Path("/addTable")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_XML)
+//	@Produces(MediaType.APPLICATION_XML)
 //	public Response addPlace(Table Item) {
-//		Table result = taBo.addItem(Item);
+//		PrimitiveType<Integer> result = new PrimitiveType<>();
+//		int xm = taBo.addItem(Item);
+//		result.setValue(xm);
+//		
 //		return Response.status(200).entity(result).build();//just test
 //	}
 	

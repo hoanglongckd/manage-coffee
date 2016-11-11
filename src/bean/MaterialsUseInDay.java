@@ -1,8 +1,8 @@
 package bean;
 
-public class MaterialsUsedInDay {
+public class MaterialsUseInDay {
 	private int id;
-	private int id_import;
+	private int id_DetailStock;
 	private int acountSold;
 	public int getId() {
 		return id;
@@ -10,11 +10,12 @@ public class MaterialsUsedInDay {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getId_import() {
-		return id_import;
+	
+	public int getId_DetailStock() {
+		return id_DetailStock;
 	}
-	public void setId_import(int id_import) {
-		this.id_import = id_import;
+	public void setId_DetailStock(int id_DetailStock) {
+		this.id_DetailStock = id_DetailStock;
 	}
 	public int getAcountSold() {
 		return acountSold;
@@ -22,14 +23,14 @@ public class MaterialsUsedInDay {
 	public void setAcountSold(int acountSold) {
 		this.acountSold = acountSold;
 	}
-	public MaterialsUsedInDay() {
+	public MaterialsUseInDay() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MaterialsUsedInDay(int id, int id_import, int acountSold) {
+	public MaterialsUseInDay(int id, int id_DetailStock, int acountSold) {
 		super();
 		this.id = id;
-		this.id_import = id_import;
+		this.id_DetailStock = id_DetailStock;
 		this.acountSold = acountSold;
 	}
 	

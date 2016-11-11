@@ -20,12 +20,12 @@ public class MenuDao {
 		Menu Item = null;
 		ArrayList<Menu> alItem = new ArrayList<Menu>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM thucdon LEFT JOIN anh ON thucdon.idAnh = anh.idAnh WHERE thucdon.idQuan =1 ";
+		String query = "SELECT * FROM thucdon LEFT JOIN giatien ON thucdon.idThucDon = giatien.idThucDon LEFT JOIN anh ON thucdon.idAnh = anh.idAnh WHERE thucdon.idQuan =1 ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Item = new Menu(rs.getInt("id"),rs.getInt("idAnh"),rs.getString("ten"),rs.getString("tenThucDon"),rs.getInt("soLuong"));
+				Item = new Menu(rs.getInt("idThucDon"),rs.getInt("idAnh"),rs.getString("ten"),rs.getString("duongDan"),rs.getString("tenThucDon"),rs.getInt("soLuong"),rs.getFloat("giaTien"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {

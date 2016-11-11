@@ -29,5 +29,14 @@ public class TableBo {
 		return tabledao.delTableByID(tid);
 	}
 
+	public void setStatusTable(int idTable, int status) {
+		 tabledao.setStatusTable(idTable,status);
+		
+	}
+
+	public  boolean getStatusTable(int idTable) {
+		return tabledao.getStatusTable(idTable);
+	}
+
 	
 }

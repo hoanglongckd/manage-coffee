@@ -6,26 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import bean.Cost;
+import bean.ImportGoods;
 import libraryConnectDb.LibraryConnectDb;
 
-public class CostDao {
+public class ImportGoodsDao {
 	private Connection conn;
 	private PreparedStatement pst;
 	private ResultSet rs;
 
 	LibraryConnectDb lb = new LibraryConnectDb();
 
-	public ArrayList<Cost> getList() {
-		Cost Item = null;
-		ArrayList<Cost> alItem = new ArrayList<Cost>();
+	public ArrayList<ImportGoods> getList() {
+		ImportGoods Item = null;
+		ArrayList<ImportGoods> alItem = new ArrayList<ImportGoods>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM giatien ";
+		String query = "SELECT * FROM  nhaphang WHERE idQuan = ? ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
+			pst.setInt(1, 1);
 			while (rs.next()) {
-				Item = new Cost(rs.getInt("id"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+				Item = new ImportGoods(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idNhanVien"),rs.getInt("idQuan"),rs.getInt("soLuong"), rs.getTimestamp("ngayNhapHang"), rs.getFloat("soTien"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -45,16 +46,19 @@ public class CostDao {
 	}
 	
 
-	public int addItem(Cost Item) {
+	public int addItem(ImportGoods Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO giatien(idThucDon,giaTien,NgayCapNhat) VALUES(?,?,?)";
+		String query = "INSERT INTO nhaphang(idNguyenLieu,idNhanVien,idQuan,soLuong,ngayNhapHang,soTien) VALUES(?,?,?,?,?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,Item.getId_menu() );
-			pst.setFloat(2, Item.getCost());
-			pst.setTimestamp(3, Item.getDate_update());
+			pst.setInt(1, Item.getId_material());
+			pst.setInt(2, Item.getId_staff());
+			pst.setInt(3, Item.getId_shop());
+			pst.setInt(4, Item.getCount_goods());
+			pst.setTimestamp(5, Item.getDate_import());
+			pst.setFloat(6, Item.getCount_money());
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -74,16 +78,20 @@ public class CostDao {
 		return result;
 	}
 
-	public int editItem(Cost Item) {
+	public int editItem(ImportGoods Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  giatien SET idThucDon= ?,giaTien = ?,NgayCapNhat =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  nhaphang SET idNguyenLieu =?,idNhanVien =? ,idQuan =?,soLuong =?,ngayNhapHang =?,soTien =? WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,Item.getId_menu());
-			pst.setFloat(2, Item.getCost());
-			pst.setTimestamp(3, Item.getDate_update());
+			pst.setInt(1, Item.getId_material());
+			pst.setInt(2, Item.getId_staff());
+			pst.setInt(3, Item.getId_shop());
+			pst.setInt(4, Item.getCount_goods());
+			pst.setTimestamp(5, Item.getDate_import());
+			pst.setFloat(6, Item.getCount_money());
+			pst.setInt(7, Item.getId_import());
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -103,18 +111,18 @@ public class CostDao {
 		
 	}
 
-	public Cost getItemByID(int Id) {
-		Cost objItem = null;
+	public ImportGoods getItemByID(int Id) {
+		ImportGoods objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM giatien WHERE idGiaTien = ? LIMIT 1";
+		String query = "SELECT * FROM nhaphang WHERE id = ?  LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+				objItem =  new ImportGoods(rs.getInt("id"),rs.getInt("idNguyenLieu"),rs.getInt("idNhanVien"),rs.getInt("idQuan"),rs.getInt("soLuong"), rs.getTimestamp("ngayNhapHang"), rs.getFloat("soTien"));
 			}
 			
 		} catch (SQLException e) {
@@ -137,7 +145,7 @@ public class CostDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  giatien WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  nhaphang WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -159,38 +167,6 @@ public class CostDao {
 		}
 		
 		return result;
-	}
-
-
-	public Cost getItemByIdMenu(int id_menu) {
-		Cost objItem = null;
-		conn = lb.getConnectMySQL();
-		
-		String query = "SELECT * FROM giatien WHERE idThucDon = ? LIMIT 1";
-		
-		try {
-			pst = conn.prepareStatement(query);
-			pst.setInt(1,id_menu );
-			rs = pst.executeQuery();
-			if(rs.next()){
-				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				rs.close();
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return objItem;
 	}
 
 }

@@ -6,26 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import bean.Cost;
+import bean.MaterialsUseInDay;
 import libraryConnectDb.LibraryConnectDb;
 
-public class CostDao {
+public class MaterialUseInDayDao {
 	private Connection conn;
 	private PreparedStatement pst;
 	private ResultSet rs;
 
 	LibraryConnectDb lb = new LibraryConnectDb();
 
-	public ArrayList<Cost> getList() {
-		Cost Item = null;
-		ArrayList<Cost> alItem = new ArrayList<Cost>();
+	public ArrayList<MaterialsUseInDay> getList() {
+		MaterialsUseInDay Item = null;
+		ArrayList<MaterialsUseInDay> alItem = new ArrayList<MaterialsUseInDay>();
 		conn = lb.getConnectMySQL();
-		String query = "SELECT * FROM giatien ";
+		String query = "SELECT * FROM  nguyenlieutrongngay  ";
 		try {
 			pst = conn.prepareStatement(query);
 			rs = pst.executeQuery();
+			pst.setInt(1, 1);
 			while (rs.next()) {
-				Item = new Cost(rs.getInt("id"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+				Item = new MaterialsUseInDay(rs.getInt("id"),rs.getInt("idChiTietKho"),rs.getInt("soLuongDaBan"));
 				alItem.add(Item);
 			}
 		} catch (SQLException e) {
@@ -45,16 +46,17 @@ public class CostDao {
 	}
 	
 
-	public int addItem(Cost Item) {
+	public int addItem(MaterialsUseInDay Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "INSERT INTO giatien(idThucDon,giaTien,NgayCapNhat) VALUES(?,?,?)";
+		String query = "INSERT INTO nguyenlieutrongngay(idChiTietKho,soLuongDaBan) VALUES(?,?)";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,Item.getId_menu() );
-			pst.setFloat(2, Item.getCost());
-			pst.setTimestamp(3, Item.getDate_update());
+			pst.setInt(1, Item.getId_DetailStock());
+			pst.setInt(2, Item.getAcountSold());
+		
+			
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -74,16 +76,18 @@ public class CostDao {
 		return result;
 	}
 
-	public int editItem(Cost Item) {
+	public int editItem(MaterialsUseInDay Item) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "UPDATE  giatien SET idThucDon= ?,giaTien = ?,NgayCapNhat =? WHERE id =? LIMIT 1";
+		String query = "UPDATE  nguyenlieutrongngay SET idChiTietKho =?,soLuongDaBan =? WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
-			pst.setInt(1,Item.getId_menu());
-			pst.setFloat(2, Item.getCost());
-			pst.setTimestamp(3, Item.getDate_update());
+			pst.setInt(1, Item.getId_DetailStock());
+			pst.setInt(2, Item.getAcountSold());
+			pst.setInt(3, Item.getId());
+			
+			
 			pst.executeUpdate();
 			result =1;
 		} catch (SQLException e) {
@@ -103,18 +107,18 @@ public class CostDao {
 		
 	}
 
-	public Cost getItemByID(int Id) {
-		Cost objItem = null;
+	public MaterialsUseInDay getItemByID(int Id) {
+		MaterialsUseInDay objItem = null;
 		conn = lb.getConnectMySQL();
 		
-		String query = "SELECT * FROM giatien WHERE idGiaTien = ? LIMIT 1";
+		String query = "SELECT * FROM nguyenlieutrongngay WHERE id = ?  LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
 			pst.setInt(1,Id );
 			rs = pst.executeQuery();
 			if(rs.next()){
-				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
+				objItem =   new MaterialsUseInDay(rs.getInt("id"),rs.getInt("idChiTietKho"),rs.getInt("soLuongDaBan"));
 			}
 			
 		} catch (SQLException e) {
@@ -137,7 +141,7 @@ public class CostDao {
 	public int delItemByID(int id) {
 		conn = lb.getConnectMySQL();
 		int result =0;
-		String query = "DELETE FROM  giatien WHERE id =? LIMIT 1";
+		String query = "DELETE FROM  nguyenlieutrongngay WHERE id =? LIMIT 1";
 		
 		try {
 			pst = conn.prepareStatement(query);
@@ -159,38 +163,6 @@ public class CostDao {
 		}
 		
 		return result;
-	}
-
-
-	public Cost getItemByIdMenu(int id_menu) {
-		Cost objItem = null;
-		conn = lb.getConnectMySQL();
-		
-		String query = "SELECT * FROM giatien WHERE idThucDon = ? LIMIT 1";
-		
-		try {
-			pst = conn.prepareStatement(query);
-			pst.setInt(1,id_menu );
-			rs = pst.executeQuery();
-			if(rs.next()){
-				objItem = new Cost(rs.getInt("idGiaTien"), rs.getInt("idThucDon"), rs.getFloat("giaTien"),rs.getTimestamp("NgayCapNhap"));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				rs.close();
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return objItem;
 	}
 
 }
