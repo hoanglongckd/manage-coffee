@@ -1,7 +1,10 @@
 <%@  page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/templates/inc/header.jsp" %>
-<%@include file="/templates/inc/left_bar.jsp" %>
+<%@include file="/templates/inc/_header.jsp" %>
+<%@include file="/templates/inc/_top.jsp" %>
+<%@include file="/templates/inc/_menu.jsp" %>
+<%@include file="/templates/inc/left_bar.jsp"%>
+<title>Thêm Đơn vị tính</title>
 
 
 
@@ -36,7 +39,6 @@
         </div>
         <!-- /#page-wrapper -->
 
-    
-</body>
+    	<jsp:include page="/templates/inc/_footer-start.jsp" />
+		<jsp:include page="/templates/inc/_footer-end.jsp" />
 
-</html>

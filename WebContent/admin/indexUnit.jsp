@@ -3,9 +3,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@  page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/templates/inc/header.jsp"%>
+<%@include file="/templates/inc/_header.jsp" %>
+<%@include file="/templates/inc/_top.jsp" %>
+<%@include file="/templates/inc/_menu.jsp" %>
 <%@include file="/templates/inc/left_bar.jsp"%>
-
+<title>Danh sách Đơn vị tính</title>
 
 
 
@@ -18,24 +20,8 @@
 			<div class="col-lg-12">
 
 				<h1 class="page-header">
-					Dơn Vị Tính <small>List</small>
+					Đơn Vị Tính <small>List</small>
 				</h1>
-
-				<div class="search">
-					<ul class="nav" id="side-menu">
-						<li class="sidebar-search">
-							<div class="input-group custom-search-form">
-								<input type="text" class="form-control" placeholder="Search...">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<i class="fa fa-search"></i>
-									</button>
-								</span>
-							</div> <!-- /input-group -->
-						</li>
-						<li>
-					</ul>
-				</div>
 
 			</div>
 
@@ -83,7 +69,8 @@
 	<!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-
+<jsp:include page="/templates/inc/_footer-start.jsp" />
+<jsp:include page="/templates/inc/_footer-end.jsp" />
 
 
 

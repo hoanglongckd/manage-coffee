@@ -3,14 +3,11 @@
 <%@  page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/templates/inc/_header.jsp" %>
-
-	<title>Danh sách bàn</title>
-
 <%@include file="/templates/inc/_top.jsp" %>
 <%@include file="/templates/inc/_menu.jsp" %>
+<%@include file="/templates/inc/left_bar.jsp"%>
 
-
-
+<title>Danh sách bàn</title>
 
 <!-- Page Content -->
 

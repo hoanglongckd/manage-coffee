@@ -5,8 +5,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@  page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/templates/inc/header.jsp"%>
+<%@include file="/templates/inc/_header.jsp" %>
+<%@include file="/templates/inc/_top.jsp" %>
+<%@include file="/templates/inc/_menu.jsp" %>
 <%@include file="/templates/inc/left_bar.jsp"%>
+<title> Thêm Nguyên liệu</title>
 
 
 
@@ -16,7 +19,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">
-					Add Nguyên liệu <small>Add</small>
+					Thêm Nguyên liệu <small>Add</small>
 				</h1>
 
 			</div>
@@ -71,7 +74,8 @@
 	<!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
-
+<jsp:include page="/templates/inc/_footer-start.jsp" />
+<jsp:include page="/templates/inc/_footer-end.jsp" />
 
 </body>
 

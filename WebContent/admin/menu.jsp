@@ -1,10 +1,10 @@
 <%@  page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/templates/inc/header.jsp" %>
-<%@include file="/templates/inc/left_bar.jsp" %>
-
-
-
+<%@include file="/templates/inc/_header.jsp" %>
+<%@include file="/templates/inc/_top.jsp" %>
+<%@include file="/templates/inc/_menu.jsp" %>
+<%@include file="/templates/inc/left_bar.jsp"%>
+<title> Danh sách Nhân viên</title>
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -13,22 +13,6 @@
                         <h1 class="page-header">Personnel
                             <small>List</small>
                         </h1>
-                        <div class="search">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                        </ul>
-                   </div>
                     </div>
                     <!-- /.col-lg-12 -->
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -50,10 +34,10 @@
                             <tr class="odd gradeX" align="center">
                                 <td>1</td>
                                 <td>quoctuan</td>
-                                <td>nguyá»n quá»c toÃ n</td>
+                                <td>nguyễn quốc tuấn</td>
                                 <td>somethiing@gmail.com</td>
                                 <td>25/12/1996</td>
-                                <td>hÃ²a khÃ¡nh</td>
+                                <td>hòa khánh</td>
                                 <td>0966874528</td>
                                 
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/delPer.jsp">Del</a></td>
@@ -62,10 +46,10 @@
                             <tr class="odd gradeX" align="center">
                                 <td>1</td>
                                 <td>quoctuan</td>
-                                <td>nguyá»n quá»c toÃ n</td>
+                                <td>nguyễn quốc tuấn</td>
                                 <td>somethiing@gmail.com</td>
                                 <td>25/12/1996</td>
-                                <td>hÃ²a khÃ¡nh</td>
+                                <td>hòa khánh</td>
                                 <td>0966874528</td>
                                 
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/delPer.jsp">Del</a></td>
@@ -74,10 +58,10 @@
                            <tr class="odd gradeX" align="center">
                                 <td>1</td>
                                 <td>quoctuan</td>
-                                <td>nguyá»n quá»c toÃ n</td>
+                                <td>nguyễn quốc tuấn</td>
                                 <td>somethiing@gmail.com</td>
                                 <td>25/12/1996</td>
-                                <td>hÃ²a khÃ¡nh</td>
+                                <td>hòa khánh</td>
                                 <td>0966874528</td>
                                 
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="<%=request.getContextPath()%>/admin/delPer.jsp">Del</a></td>
@@ -94,8 +78,5 @@
 
    
     <!-- /#wrapper -->
-
-    
-</body>
-
-</html>
+<jsp:include page="/templates/inc/_footer-start.jsp" />
+<jsp:include page="/templates/inc/_footer-end.jsp" />

@@ -33,7 +33,7 @@
 				<form action="${pageContext.request.contextPath}/admin/updateNhanVien"
 					method="POST">
 					<div>
-					<input type="hidden"name="idNhanVien" value="<%=nhanVien.getId()%>"/>
+					<input type="hidden" name="idNhanVien" value="<%=nhanVien.getId()%>"/>
 					</div>
 					<div class="form-group">
 						<label>Ảnh: </label><br/>
